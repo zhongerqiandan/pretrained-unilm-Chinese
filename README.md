@@ -45,11 +45,10 @@ right2left LM与上面相反:
 ![pic/image-20201126145937390.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201126145937390.png)
 ## 下载
 我们开源了预训练好的模型，以及预训练用到的数据，同时为了方便大家finetune，这里一同给出下游任务数据的链接
-模型
-[tensorflow版](https://pan.baidu.com/s/1x9eRJMt76bEPQ5nNkOkPZQ)提取码：jfb3
-[pytorch版](https://pan.baidu.com/s/1FKjieHoXr-LBWK89EnMdZw)提取码：x2wf
-数据
-[整理好的中文wiki预训练数据](https://pan.baidu.com/s/1XGkhwUePsIR3lP_quiXlCQ)提取码：p75b
-[论文标题生成数据csl](https://pan.baidu.com/s/1AzTupql6EwW1j_kI4qmQkA)提取码：kd9h
-[webqa](https://pan.baidu.com/s/1OOwOtBzZ11b6Bw1X8tY6Tg)提取码：kteo
-[微博新闻摘要](https://pan.baidu.com/s/186qUGq_HIiOXgMfl3QRwKw)提取码：cdtc
+| 链接 | 提取码 |
+|[tensorflow版](https://pan.baidu.com/s/1x9eRJMt76bEPQ5nNkOkPZQ) |jfb3|
+|[pytorch版](https://pan.baidu.com/s/1FKjieHoXr-LBWK89EnMdZw)|x2wf|
+|[整理好的中文wiki预训练数据](https://pan.baidu.com/s/1XGkhwUePsIR3lP_quiXlCQ)|p75b|
+|[论文标题生成数据csl](https://pan.baidu.com/s/1AzTupql6EwW1j_kI4qmQkA)|kd9h|
+|[webqa](https://pan.baidu.com/s/1OOwOtBzZ11b6Bw1X8tY6Tg)|kteo|
+|[微博新闻摘要](https://pan.baidu.com/s/186qUGq_HIiOXgMfl3QRwKw)|cdtc|
