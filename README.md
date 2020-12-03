@@ -33,5 +33,5 @@ right2left LM与上面相反:
 ### unilm微博新闻标题生成
 ![pic/image-20201119142146145.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201119142146145.png)
 ### unilm相似问句生成
-完全端到端的构建相似句，可以用于基于faq的智能问答系统、预料扩充等。这个任务的数据暂时无法公开，但是可以说这种端到端的生成相似句的效果已经非常不错了，不用维护复杂的规则，但是需要较好的语料。我司现在线上就在使用这个模型。
+完全端到端的构建相似句，可以用于基于faq的智能问答系统、预料扩充等。这个任务的数据暂时无法公开，但是可以说这种端到端的生成相似句的效果已经非常不错了，不用维护复杂的规则，但是需要较好的语料。
 ![pic/image-20201126145937390.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201126145937390.png)
