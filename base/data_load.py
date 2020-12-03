@@ -4,10 +4,6 @@
 # @mail    : zhongerqiandan@163.com
 
 import sys
-import copy
-import codecs
-import pickle
-import random
 import functools
 import numpy as np
 import tensorflow as tf
@@ -52,6 +48,12 @@ def parse_data(path):
 
 
 def create_attention_mask_for_seq(segment_id, input_mask):
+    '''
+    生成casual with prefix attention mask
+    :param segment_id:
+    :param input_mask:
+    :return:
+    '''
     attention_mask = np.zeros(shape=(len(segment_id), len(segment_id)))
     attention_mask += np.array(input_mask)
 
@@ -65,6 +67,12 @@ def create_attention_mask_for_seq(segment_id, input_mask):
 
 
 def create_attention_mask_for_lm(input_mask, reverse=False):
+    '''
+    生成casual attention mask
+    :param input_mask:
+    :param reverse:
+    :return:
+    '''
     attention_mask = np.zeros(shape=(len(input_mask), len(input_mask)))
     attention_mask += np.array(input_mask)
     for i in range(len(input_mask) - 1):
@@ -76,12 +84,17 @@ def create_attention_mask_for_lm(input_mask, reverse=False):
 
 
 def create_attention_mask_for_bi(input_mask):
+    '''
+    生成fully-visible attention mask
+    :param input_mask:
+    :return:
+    '''
     attention_mask = np.zeros(shape=(len(input_mask), len(input_mask)))
     attention_mask += np.array(input_mask)
     return attention_mask
 
 
-def creat_input_mask(input_id, max_len, p=0.15):
+def create_input_mask(input_id, max_len, p=0.15):
     '''
 
     :param input_id: [cls_id, id1, id2, id3,..., sep_id]
@@ -153,25 +166,25 @@ def train_generator(path, max_length):
             if len(segment_id) - sum(segment_id) >= max_length:
                 # 第一个句子长度大于max_length
                 continue
-            input_id, input_mask, masked_ids, masked_positions, masked_weights = creat_input_mask(input_id, max_length)
+            input_id, input_mask, masked_ids, masked_positions, masked_weights = create_input_mask(input_id, max_length)
             segment_id += [1] * (max_length - len(segment_id))
             segment_id = segment_id[:max_length]
             attention_mask = create_attention_mask_for_seq(segment_id, input_mask)
         elif randn >= 0.34 and randn <= 0.67:
             input_id = que + ans
-            input_id, input_mask, masked_ids, masked_positions, masked_weights = creat_input_mask(input_id, max_length)
+            input_id, input_mask, masked_ids, masked_positions, masked_weights = create_input_mask(input_id, max_length)
             attention_mask = create_attention_mask_for_bi(input_mask)
             segment_id += [1] * (max_length - len(segment_id))
             segment_id = segment_id[:max_length]
         elif randn > 0.67 and randn <= 0.83:
             input_id = que + ans
-            input_id, input_mask, masked_ids, masked_positions, masked_weights = creat_input_mask(input_id, max_length)
+            input_id, input_mask, masked_ids, masked_positions, masked_weights = create_input_mask(input_id, max_length)
             segment_id += [1] * (max_length - len(segment_id))
             segment_id = segment_id[:max_length]
             attention_mask = create_attention_mask_for_lm(input_mask)
         else:
             input_id = que + ans
-            input_id, input_mask, masked_ids, masked_positions, masked_weights = creat_input_mask(input_id, max_length)
+            input_id, input_mask, masked_ids, masked_positions, masked_weights = create_input_mask(input_id, max_length)
             segment_id += [1] * (max_length - len(segment_id))
             segment_id = segment_id[:max_length]
             attention_mask = create_attention_mask_for_lm(input_mask, reverse=True)
