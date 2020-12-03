@@ -46,6 +46,7 @@ right2left LM与上面相反:
 ## 下载
 我们开源了预训练好的模型，以及预训练用到的数据，同时为了方便大家finetune，这里一同给出下游任务数据的链接
 | 链接 | 提取码 |
+|----------------------------------------------------------------|---|
 |[tensorflow版](https://pan.baidu.com/s/1x9eRJMt76bEPQ5nNkOkPZQ) |jfb3|
 |[pytorch版](https://pan.baidu.com/s/1FKjieHoXr-LBWK89EnMdZw)|x2wf|
 |[整理好的中文wiki预训练数据](https://pan.baidu.com/s/1XGkhwUePsIR3lP_quiXlCQ)|p75b|
