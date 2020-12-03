@@ -10,15 +10,19 @@
 ### 预训练细节
 1. 在一条数据中随机mask15%的token，被mask的token中80%用[MASK]表示，10%从vocab中随机选择一个token，10%不变。e.g. 一条可能的数据如下：[CLS] A1 A2 [MASK] A4 [SEP] B1 B2 B3 [MASK] B5 [SEP]，其中A1-A4是句子1的token，B1-B5是句子2的token，A3和B4被mask。
 2. 根据1中masked input的结果，生成不同的attention mask，unilm原文中说有1/3的数据采用seq2seq式的attention mask策略，1/3的数据采用bert式的attention mask策略，1/6数据采用left2right的language model式的attention mask，1/6数据采用right2left的language model式的attention mask。seq2seq其实就是对应的casual with prefix attention mask(下图，其他token在这里不可以看到被mask位置的符号):
+#### casual with prefix attention mask
 ![pic/image-20201126141626762.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201126141626762.png)
 
 bert式对应的就是fully-visible attention mask(下图):
+#### fully-visible attention mask
 ![pic/image-20201126141822288.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201126141822288.png)
 
 left2right LM对应的就是casual attention mask，每个token只能attend它和它左边的token（下图）:
+#### casual attention mask
 ![pic/image-20201126141922904.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201126141922904.png)
 
 right2left LM与上面相反:
+#### reverse casual attention mask
 ![pic/image-20201126142013570.png](https://github.com/zhongerqiandan/pretrained-unilm-Chinese/blob/master/pic/image-20201126142013570.png)
 
 3. 以上就是整个数据处理过程，数据处理完之后就可以开始训练模型了，训练方法和原文一样，就是预测被mask的token，从谷歌原版的中文bert-base模型初始化。我们使用4块v100，每块卡上的batch size为6，学习率和原文保持一致，持续训练100万步。
