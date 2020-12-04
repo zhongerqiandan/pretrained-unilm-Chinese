@@ -299,6 +299,7 @@ def get_masked_lm_output(bert_config, input_tensor, output_weights, positions,
 
     return (loss, per_example_loss, log_probs)
 
+
 def gather_indexes(sequence_tensor, positions):
     """Gathers the vectors at the specific positions over a minibatch."""
     sequence_shape = modeling.get_shape_list(sequence_tensor, expected_rank=3)
@@ -313,6 +314,7 @@ def gather_indexes(sequence_tensor, positions):
                                       [batch_size * seq_length, width])
     output_tensor = tf.gather(flat_sequence_tensor, flat_positions)
     return output_tensor
+
 
 def _decode_record(record, name_to_features):
     """Decodes a record to a TensorFlow example."""

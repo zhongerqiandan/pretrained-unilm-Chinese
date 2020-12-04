@@ -21,7 +21,6 @@ import re
 from random import shuffle, sample
 import json
 
-
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 # 基本参数
 maxlen = 512
@@ -77,6 +76,7 @@ token_dict, keep_tokens = load_vocab(
 )
 tokenizer = Tokenizer(token_dict, do_lower_case=True)
 
+
 def web_qa_tokenize(question, passage, answer, max_len):
     question_tokens = tokenizer.tokenize(question)[1:-1]
     passage_tokens = tokenizer.tokenize(passage)[1:-1]
@@ -117,6 +117,7 @@ def web_qa_tokenize(question, passage, answer, max_len):
 class data_generator(DataGenerator):
     """数据生成器
     """
+
     def __iter__(self, random=False):
         batch_token_ids, batch_segment_ids = [], []
         for is_end, (question, passage, answer) in self.sample(random):
@@ -137,6 +138,7 @@ class data_generator(DataGenerator):
 class CrossEntropy(Loss):
     """交叉熵作为loss，并mask掉输入部分
     """
+
     def compute_loss(self, inputs, mask=None):
         y_true, y_mask, y_pred = inputs
         y_true = y_true[:, 1:]  # 目标token_ids
@@ -149,7 +151,7 @@ class CrossEntropy(Loss):
 
 model = build_transformer_model(
     config_path,
-    checkpoint_path= checkpoint_path,
+    checkpoint_path=checkpoint_path,
     application='unilm',
     model='bert',
     keep_tokens=keep_tokens,  # 只保留keep_tokens中的字，精简原字表
@@ -165,6 +167,7 @@ model.summary()
 class AutoTitle(AutoRegressiveDecoder):
     """seq2seq解码器
     """
+
     @AutoRegressiveDecoder.wraps(default_rtype='probas')
     def predict(self, inputs, output_ids, states):
         token_ids, segment_ids = inputs
@@ -186,6 +189,7 @@ class AutoTitle(AutoRegressiveDecoder):
 
 autotitle = AutoTitle(start_id=None, end_id=tokenizer._token_end_id, maxlen=16)
 
+
 def show():
     samples = sample(valid_data, 6)
     for each in samples:
@@ -201,9 +205,11 @@ def show():
         print('Generative answer:')
         print(g_answer)
 
+
 class Evaluator(keras.callbacks.Callback):
     """模型评测与保存
     """
+
     def __init__(self):
         self.rouge = Rouge()
         self.smooth = SmoothingFunction().method1
@@ -248,7 +254,6 @@ class Evaluator(keras.callbacks.Callback):
 
 
 if __name__ == '__main__':
-
     evaluator = Evaluator()
     train_generator = data_generator(train_data, batch_size)
 
