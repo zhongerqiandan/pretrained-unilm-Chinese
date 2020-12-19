@@ -2,6 +2,34 @@
 中文版unilm预训练模型
 ## 简介
 最近由于公司业务的需要，做了一些基于预训练seq2seq模型的文本生成式任务，研究了[MASS](https://github.com/microsoft/MASS)、[T5](https://github.com/google-research/text-to-text-transfer-transformer)、[UNILM](https://github.com/microsoft/unilm)之后，发现unilm这风格的seq2seq非常优雅。但是作者只开源了英文版的预训练模型，在git上也没找到合适的中文版unilm的预训练模型以及预训练代码，于是自己写了一个tensorflow版本。本项中预训练基于tensorflow-gpu==1.14.0，后续的微调任务基于[bert4keras](https://github.com/bojone/bert4keras)。
+## Get Started
+### 预训练步骤
+1. 首先确保机器上有python3的环境，推荐安装anaconda3。
+2. conda install tensorflow-gpu=1.14.0
+3. pip install keras4bert
+4. 下载google原版的中文版bert，chinese_L-12_H-768_A-12
+5. 下载数据集，https://pan.baidu.com/s/1XGkhwUePsIR3lP_quiXlCQ，提取码：p75b
+6. 修改base/data_load.py文件中dict_path的值，将其更改为你的bert文件夹中vocab.txt的路径
+7. 修改run_pretraining_google.py中37、38行，你使用几块gpu就更改为对应的值
+8. 
+```
+python run_pretraining_google.py \
+  --bert_config_file=$BERT_BASE_DIR/bert_config.json \
+  --init_checkpoint=$BERT_BASE_DIR/bert_model.ckpt \
+  --input_file=$DATA_BASE_DIR/wiki_sent_pair.txt \
+  --output_dir=$OUT_PUT_BASE_DIR/checkpoint
+```
+### fine-tune步骤
+1. 首先确保机器上有python3的环境，推荐安装anaconda3。
+2. conda install tensorflow-gpu=1.14.0
+3. pip install keras4bert rouge nltk
+4. 下载数据集，放到dataset/目录下
+4. 下载预训练好的tensorflow版本的模型，https://pan.baidu.com/s/1x9eRJMt76bEPQ5nNkOkPZQ，提取码jfb3
+5. 以task/task_summary.py为例，将文件中config_path、checkpoint_path、dict_path改为上一步下载好的模型目录中的相关路径,model_save_path 改为自己的模型保存路径
+6. 
+```
+python task_summary.py
+```
 
 ## 预训练
 ### 数据

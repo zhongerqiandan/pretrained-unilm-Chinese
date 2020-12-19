@@ -25,6 +25,8 @@ config_path = '/data/jiangweiwei/bertmodel/chinese_L-12_H-768_A-12/bert_config.j
 checkpoint_path = '/data/jiangweiwei/bertmodel/bert-seq2seq_mlm-lm-bi/bert_model.ckpt'
 dict_path = '/data/jiangweiwei/bertmodel/chinese_L-12_H-768_A-12/vocab.txt'
 
+model_save_path = '/home/jiangweiwei/pretrained-unilm-Chinese/output/autotitle_csl/best_model.weights'
+
 
 def load_data(filename):
     D = []
@@ -146,8 +148,7 @@ class Evaluator(keras.callbacks.Callback):
         metrics = self.evaluate(valid_data)  # 评测模型
         if metrics['bleu'] > self.best_bleu:
             self.best_bleu = metrics['bleu']
-            model.save_weights(
-                '/home/jiangweiwei/pretrained-unilm-Chinese/output/autotitle_csl/best_model.weights')  # 保存模型
+            model.save_weights(model_save_path)  # 保存模型
         metrics['best_bleu'] = self.best_bleu
         print('valid_data:', metrics)
         show()
