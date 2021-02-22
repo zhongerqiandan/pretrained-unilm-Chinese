@@ -5,7 +5,7 @@
 
 - [Background](#background)
 - [Pretraining Details](#pretraining details)
-- [Download](#install)
+- [Download](#download)
 - [Usage](#usage)
 - [Experiment](#experiment)
 - [TODO](#todo)
